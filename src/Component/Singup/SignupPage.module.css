@@ -1,0 +1,43 @@
+.maindiv{
+    width: fit-content;
+    border: 1px solid rgb(137, 128, 128);
+    margin: auto;
+    text-align: center;
+    margin-top: 15%;
+   
+}
+.maindiv input{
+    width:16rem;
+    height: 1.7rem;
+    margin: 0 13px 8px 13px;
+    border-radius: 5px;
+     border: 1px solid rgb(137, 128, 128);
+}
+
+.maindiv button {
+    width: 17rem;
+    height: 2rem;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    background-color: rgb(8, 129, 250);
+    margin-bottom: 2rem;
+}
+.seconddiv{
+    width: fit-content;
+    margin: auto;
+    margin-top: 1rem;
+    border: 1px solid rgb(137, 128, 128);
+    border-radius: 7px;
+}
+.loginbtn{
+   
+    height: 3rem;
+    width: 18rem;
+    color: white;
+    font-size: 17px;
+    border-radius: 7px;
+    border: none;
+    background-color: rgb(8, 129, 250);
+
+}
