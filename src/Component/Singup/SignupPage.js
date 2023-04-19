@@ -57,8 +57,12 @@ const SignupPage = () => {
         }
       )
         .then((res) => res.json())
-        .then((res) => {alert("Account Successfully created", res)
-                if(IsLogedin ){Navigate('/Dummy')}
+        .then((res) => {
+            // console.log(res.idToken);
+                alert( IsLogedin ? 'Login Successfull':"Account Successfully created")
+                if(IsLogedin ){
+                    localStorage.setItem( 'token',res.idToken);
+                    Navigate('/Dummy')}
                         })
         .catch((err) => alert("Something went wrong",err));
     } else {

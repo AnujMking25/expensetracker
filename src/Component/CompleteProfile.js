@@ -1,12 +1,12 @@
 import React from 'react'
 import ContactDetails from './ContactDetails'
-
+import classes from './Dummy.module.css'
 const CompleteProfile = () => {
   return (
     <>
-    <div style={{display:'flex' }}>
-         <h3>Winners never quite, Quitters never win</h3>
-         <button style={{right:'0',marginLeft:'auto'}}>Your Profile is 64% complete. A Complete Profile has higher chances of landing a job.Complete now</button>
+    <div className={classes.maindiv} >
+         <p>Winners never quite, Quitters never win</p>
+         <button style={{marginTop:'-3rem'}}>Your Profile is 64% complete. A Complete Profile <br/>has higher chances of landing a job.Complete now</button>
          <hr/>
     </div>
     <ContactDetails/>

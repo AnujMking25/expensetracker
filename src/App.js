@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import SignupPage from './Component/Singup/SignupPage';
-import Dummy from './Component/Singup/Dummy';
+import Dummy from './Component/Dummy';
 import CompleteProfile from './Component/CompleteProfile';
 
 function App() {

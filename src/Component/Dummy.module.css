@@ -1,0 +1,17 @@
+.maindiv{
+    display: contents;
+}
+.maindiv p{
+    font-style: italic;
+  
+    width: fit-content;
+}
+.maindiv button{
+    margin-top: -2rem;
+    font-style: italic;
+float: right;
+background:rgb(226, 171, 171) ;
+border: none;
+padding:5px 10px 5px 10px;
+border-radius: 10px;
+}
