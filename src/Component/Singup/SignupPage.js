@@ -8,7 +8,7 @@ const SignupPage = () => {
   const confirmInputPasswordRef = useRef();
   const [IsValid, setIsValid] = useState(true);
   const [IsLogedin, setIsLogedin] = useState(false);
- const Navigate= useNavigate()
+  const Navigate = useNavigate();
   function onLogedIn() {
     setIsLogedin((prev) => !prev);
   }
@@ -24,7 +24,7 @@ const SignupPage = () => {
     }
   }
   //******************************** form Validation        *************==>END HERE<==
-  function onSubmitHandler(e) {
+  async function onSubmitHandler(e) {
     e.preventDefault();
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
@@ -40,11 +40,15 @@ const SignupPage = () => {
       return;
     }
     if (password === confirmPassword) {
-        let url="https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI"
-        if(IsLogedin){
-            url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI'
-        }
-        fetch(url ,{
+      let url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI";
+      if (IsLogedin) {
+        url =
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI";
+      }
+
+      try {
+        const postApi = await fetch(url, {
           method: "POST",
           body: JSON.stringify({
             email: email,
@@ -54,26 +58,30 @@ const SignupPage = () => {
           headers: {
             "Content-Type": "application/json",
           },
+        });
+        if (postApi.ok) {
+          const responseData = await postApi.json();
+          alert(
+            IsLogedin ? "Login Successfull" : "Account Successfully created"
+          );
+          localStorage.setItem("token", responseData.idToken);
+          Navigate("/Dummy");
+        } else {
+          const responseData = await postApi.json();
+          throw responseData.error;
         }
-      )
-        .then((res) => res.json())
-        .then((res) => {
-            // console.log(res.idToken);
-                alert( IsLogedin ? 'Login Successfull':"Account Successfully created")
-                if(IsLogedin ){
-                    localStorage.setItem( 'token',res.idToken);
-                    Navigate('/Dummy')}
-                        })
-        .catch((err) => alert("Something went wrong",err));
+      } catch (error) {
+        alert(error.message);
+      }
     } else {
       alert("Password and Confirm Password is not some");
     }
   }
   // ***************************** forget Page *******==> START HERE <==
-  function onForgetPage(){
-    Navigate('/forgetpage')
+  function onForgetPage() {
+    Navigate("/forgetpage");
   }
-   // ***************************** forget Page*******==> START HERE <==
+  // ***************************** forget Page*******==> START HERE <==
   return (
     <>
       <div className={classes.maindiv}>
@@ -111,13 +119,16 @@ const SignupPage = () => {
             }}
           />
           <br />
-          <button>{IsLogedin ? 'Login':'SignUP'}</button><br/>
+          <button>{IsLogedin ? "Login" : "SignUP"}</button>
+          <br />
           {IsLogedin && <button onClick={onForgetPage}>forget Password</button>}
         </form>
       </div>
       <div className={classes.seconddiv}>
         <button className={classes.loginbtn} onClick={onLogedIn}>
-          {IsLogedin ? "Don't have an account? Signup":'Have an account? Login'}
+          {IsLogedin
+            ? "Don't have an account? Signup"
+            : "Have an account? Login"}
         </button>
       </div>
     </>
