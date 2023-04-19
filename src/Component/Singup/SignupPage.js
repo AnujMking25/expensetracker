@@ -69,7 +69,11 @@ const SignupPage = () => {
       alert("Password and Confirm Password is not some");
     }
   }
-
+  // ***************************** forget Page *******==> START HERE <==
+  function onForgetPage(){
+    Navigate('/forgetpage')
+  }
+   // ***************************** forget Page*******==> START HERE <==
   return (
     <>
       <div className={classes.maindiv}>
@@ -107,8 +111,8 @@ const SignupPage = () => {
             }}
           />
           <br />
-          <button>{IsLogedin ? 'Login':'SignUP'}</button>
-          {IsLogedin && <p>forget Password</p>}
+          <button>{IsLogedin ? 'Login':'SignUP'}</button><br/>
+          {IsLogedin && <button onClick={onForgetPage}>forget Password</button>}
         </form>
       </div>
       <div className={classes.seconddiv}>
