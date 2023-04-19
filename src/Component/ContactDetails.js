@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './ContactDetails.css'
+import { useNavigate } from 'react-router-dom';
 const ContactDetails = () => {
     const InputName=useRef();
     const InputUrl=useRef();
+    const Navigate=useNavigate()
     const [userDetails,setUserDetails]=useState({
         name:'',
         url:''
@@ -72,9 +74,14 @@ fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSy
 .catch(err=>alert("Verification Faild"))
 
     }
+    function onLogout(){
+        localStorage.removeItem('token')
+        Navigate('/')
+    }
   return (
     <>
      <button id='b1' onClick={onVerifyEmail}>Email Verify</button>
+     <button id='b1' onClick={onLogout} style={{float:'right'}}>Logout</button> 
     <div className='maindiv'>
 <table className='table'>
     <tbody>
