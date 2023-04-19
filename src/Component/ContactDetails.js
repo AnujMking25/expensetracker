@@ -13,7 +13,10 @@ const ContactDetails = () => {
         method:'POST',
         body:JSON.stringify({
             idToken:token
-        })
+        }),
+        headers:{
+            'Content-Type':'application/json'
+        }
       })
         .then((res)=>res.json())
         .then(res=>{
@@ -51,8 +54,27 @@ const ContactDetails = () => {
    
     }).catch(err=>console.log(err))
     }
+    function onVerifyEmail(){
+// alert('Working')
+const token=localStorage.getItem('token')
+fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI',{
+    method:'POST',
+    body:JSON.stringify({
+        requestType: "VERIFY_EMAIL",
+        idToken:token
+    }),
+    headers:{
+        'Content-Type':'application/json'
+    }
+})
+.then(res=>res.json())
+.then(res=>console.log(res))
+.catch(err=>alert("Verification Faild"))
+
+    }
   return (
     <>
+     <button id='b1' onClick={onVerifyEmail}>Email Verify</button>
     <div className='maindiv'>
 <table className='table'>
     <tbody>
@@ -62,7 +84,7 @@ const ContactDetails = () => {
         </tr>
     </tbody>
 </table>
-        
+       
          
         <form onSubmit={onUpdateProfile}>
             <table>
