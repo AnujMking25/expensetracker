@@ -7,6 +7,9 @@
     text-align: center;
     border-bottom: 1px solid black
 }
+.maindiv form{
+    min-height:10rem ;
+}
 .maindiv table{
     width: 100%;
 }
