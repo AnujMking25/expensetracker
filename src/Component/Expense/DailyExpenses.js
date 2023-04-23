@@ -4,7 +4,7 @@ import ShowExpense from "./ShowExpense";
 import UpdateExpenses from "./UpdateExpenses";
 import { useDispatch, useSelector } from "react-redux";
 import {ExpenseItemsAction} from "../Store/ExpenseItemData";
-
+import { themeActions } from "../Store/ThemeMode";
 const DailyExpenses = () => {
   const Inputmoney = useRef();
   const InputDescription = useRef();
@@ -15,6 +15,7 @@ const DailyExpenses = () => {
 
   const dispatch=useDispatch();
   const ExpenseItems=useSelector(state=>state.expenseitems.items);
+  const themeMode = useSelector((state) => state.theme.theme);
   let url =
     "https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense.json";
 
@@ -135,14 +136,44 @@ console.log('premium',sum);
     // *********************** Post Request Api ***********==> END HERE<==*****************
   }
 
-  // console.log(data);
+    //********************************* Theme******************==> START HERE <==
+
+    useEffect(() => {
+      if (themeMode === "dark") {
+        document.body.style.backgroundColor = "gray";
+      } else {
+        document.body.style.backgroundColor = "white";
+      }
+    }, [themeMode]);
+     //*********************************** Theme ends**************==> End HERE <==
+     const premiumHandler = () => {
+      dispatch(themeActions.toggleTheme());
+    };
+
+//  ********************CSV*************************
+      const title=['Category','Description','Spent Money'];
+      const CSVdata=[title];
+      ExpenseItems.forEach(element => {
+        CSVdata.concat([element.category,element.description,element.money])
+      });
+
+      const creatingCSV = CSVdata.map((row) => row.join(",")).join("\n");
+      const blob =new Blob([creatingCSV]); 
+
+    
   return (<>
   <div className={classes.premium}>
-  {Premium && <button >Premium</button>}
+  {Premium && <button onClick={premiumHandler}>Premium</button>}
   </div>
-  
+ 
     <div className={classes.maindiv}>
-      
+    {Premium &&  <a
+          href={URL.createObjectURL(blob)}
+          download="expenses.csv"
+          style={{ marginTop: "80px", color: "red" }}
+        >
+          Download Your Expenses
+        </a>}
       <h1>Daily Expenses</h1>
       <form onSubmit={onExpensesHandler}>
         <table>
