@@ -1,0 +1,17 @@
+.maindiv{
+position: fixed;
+margin-top: -1rem;
+height: 100%;
+width: 100%;
+background: rgba(50, 50, 53, 0.75);
+
+}
+.maindiv form{
+    margin-top: 15rem;
+    margin-left: 35%;
+    border: 1px solid black;
+    width: fit-content;
+    padding: 2rem;
+    border-radius:12px ;
+    background: white;
+}

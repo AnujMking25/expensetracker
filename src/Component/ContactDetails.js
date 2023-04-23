@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './ContactDetails.css'
 import { useNavigate } from 'react-router-dom';
+import { authAction } from './Store/Auth';
+import { useDispatch } from 'react-redux';
 const ContactDetails = () => {
     const InputName=useRef();
     const InputUrl=useRef();
     const Navigate=useNavigate()
+    const dispatch=useDispatch();
     const [userDetails,setUserDetails]=useState({
         name:'',
         url:''
@@ -75,7 +78,7 @@ fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSy
 
     }
     function onLogout(){
-        localStorage.removeItem('token')
+        dispatch(authAction.logout())
         Navigate('/')
     }
   return (

@@ -1,14 +1,23 @@
 import React, { useRef, useState } from "react";
 import classes from "./SignupPage.module.css";
 import { useNavigate } from "react-router-dom";
-
+// redux start
+import { useDispatch } from "react-redux";
+import { authAction } from "../Store/Auth";
+// redux End
 const SignupPage = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const confirmInputPasswordRef = useRef();
+
   const [IsValid, setIsValid] = useState(true);
   const [IsLogedin, setIsLogedin] = useState(false);
+
   const Navigate = useNavigate();
+// redux start
+const dispatch=useDispatch();
+// redux end
+
   function onLogedIn() {
     setIsLogedin((prev) => !prev);
   }
@@ -40,6 +49,8 @@ const SignupPage = () => {
       return;
     }
     if (password === confirmPassword) {
+
+        
       let url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI";
       if (IsLogedin) {
@@ -60,12 +71,20 @@ const SignupPage = () => {
           },
         });
         if (postApi.ok) {
+
           const responseData = await postApi.json();
-          alert(
-            IsLogedin ? "Login Successfull" : "Account Successfully created"
-          );
-          localStorage.setItem("token", responseData.idToken);
-          Navigate("/Dummy");
+          if (IsLogedin) {
+            alert("Login Successfull")
+            localStorage.setItem("token", responseData.idToken);
+            dispatch(authAction.login(true))
+            Navigate("/Dummy");
+          } else {
+            alert("Account Successfully created");
+            setIsLogedin(true)
+            return;
+          }
+        
+         
         } else {
           const responseData = await postApi.json();
           throw responseData.error;
