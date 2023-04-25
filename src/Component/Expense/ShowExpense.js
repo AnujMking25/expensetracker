@@ -1,20 +1,25 @@
 import React from 'react'
 import classes from './ShowExpense.module.css'
+import { useDispatch } from 'react-redux'
+import { ExpenseItemsAction } from '../Store/ExpenseItemData'
 
 const ShowExpense = (props) => {
-
+ const dispatch=useDispatch()
   function onDeleteHandler(){
 props.onDelete(props.id)
   }
 
   function onEditHandler(){
-    const edititems={
+    
+    const edititem={
       id:props.id,
       money:props.money,
       description:props.description,
       category:props.category
       }
-    props.onEdit(edititems)
+      console.log("send",edititem);
+      dispatch(ExpenseItemsAction.EditData(edititem))
+    props.onEdit()
   }
   
   // Premium button logic

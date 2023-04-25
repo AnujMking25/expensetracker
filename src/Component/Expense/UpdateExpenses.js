@@ -1,23 +1,28 @@
 import ReactDOM from "react-dom"
 import classes from './UpdateExpenses.module.css'
 import { useRef } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { ExpenseItemsAction } from "../Store/ExpenseItemData";
 const UpdateExpensesCart=(props)=>{
     const Emoney=useRef();
     const Edescription=useRef();
     const Ecategory=useRef();
+    const email=useSelector(state=>state.auth.emailIs)
+    const edititem=useSelector(state=>state.expenseitems.editiitem)
+const dispatch=useDispatch()
 function onHide(){
   props.onHide()
 }
   async function getElementID(){
     try {
       let elementId;
-      const getApi=await fetch("https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense.json")
+      const getApi=await fetch(`https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`)
         if(getApi.ok){
           // alert("getApi working")
           const response=await getApi.json();
           // console.log("getApi Key",response);
          for (const key in response) {
-           if (props.Editdata.id===response[key].id) {
+           if (edititem.id===response[key].id) {
               elementId =key
              break
            }
@@ -32,24 +37,25 @@ function onHide(){
 
    async function onSubmitHandler(e){
       e.preventDefault();
-      // console.log(Emoney.cu);
+    
      const elementID=await getElementID()
-    //  console.log("elementID===> ",elementID);
+    const updatedData={
+      id:edititem.id,
+      money: Emoney.current.value,
+      description: Edescription.current.value,
+      category: Ecategory.current.value,
+    }
     try {
-      const EditApi= await fetch(`https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense/${elementID}.json`,{
+      const EditApi= await fetch(`https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}/${elementID}.json`,{
         method:'PUT',
-        body:JSON.stringify({
-          id:Emoney.current.value+Edescription.current.value,
-          money: Emoney.current.value,
-          description: Edescription.current.value,
-          category: Ecategory.current.value,
-        }),
+        body:JSON.stringify(updatedData),
         headers:{
           'Content-Type':'application/json'
         }
         
       })
       if(EditApi.ok){
+        dispatch(ExpenseItemsAction.updateDataApi(updatedData))
         alert('Update Expense successfully')
         onHide()
       }
@@ -71,16 +77,17 @@ return(
             </tr>
             <tr>
               <td>
-                <input type="number" defaultValue={props.Editdata.money} ref={Emoney}/>
+                <input type="number" defaultValue={edititem.money} ref={Emoney}/>
               </td>
               <td>
-                <input type="text" defaultValue={props.Editdata.description} ref={Edescription}/>
+                <input type="text" defaultValue={edititem.description} ref={Edescription}/>
               </td>
               <td>
-                <select name="Category" id="Tcategory" defaultValue={props.Editdata.category} ref={Ecategory}>
+                <select name="Category" id="Tcategory" defaultValue={edititem.category} ref={Ecategory}>
                   <option value="Food">Food</option>
                   <option value="Petrol">Petrol</option>
                   <option value="Salary">Salary</option>
+                  <option value="Electronice">Electronice</option>
                 </select>
               </td>
             </tr>

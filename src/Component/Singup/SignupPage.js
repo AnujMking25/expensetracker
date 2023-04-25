@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import classes from "./SignupPage.module.css";
 import { useNavigate } from "react-router-dom";
 // redux start
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { authAction } from "../Store/Auth";
 // redux End
 const SignupPage = () => {
@@ -17,6 +17,8 @@ const SignupPage = () => {
 // redux start
 const dispatch=useDispatch();
 // redux end
+
+
 
   function onLogedIn() {
     setIsLogedin((prev) => !prev);
@@ -48,9 +50,7 @@ const dispatch=useDispatch();
       alert("Please Create a Strong password");
       return;
     }
-    if (password === confirmPassword) {
-
-        
+    if (password === confirmPassword) {       
       let url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI";
       if (IsLogedin) {
@@ -76,7 +76,9 @@ const dispatch=useDispatch();
           if (IsLogedin) {
             alert("Login Successfull")
             localStorage.setItem("token", responseData.idToken);
-            dispatch(authAction.login(true))
+            const emailId=email.replace("@",'').replace('.','')
+            localStorage.setItem("email",emailId)
+            dispatch(authAction.login({isLoggedIn:true,emailIs:emailId}))
             Navigate("/Dummy");
           } else {
             alert("Account Successfully created");
@@ -103,6 +105,7 @@ const dispatch=useDispatch();
   // ***************************** forget Page*******==> START HERE <==
   return (
     <>
+    <h1 style={{textAlign:'center',fontSize:'50px',background:'rgb(8, 129, 250)',color:'white',marginTop:'0',padding:'10px'}}>Welcome To Expense Tracker</h1>
       <div className={classes.maindiv}>
         <form onSubmit={onSubmitHandler}>
           <h1>{IsLogedin ? "Login" : "SignUp"}</h1>

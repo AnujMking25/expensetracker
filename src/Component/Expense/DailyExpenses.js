@@ -5,25 +5,30 @@ import UpdateExpenses from "./UpdateExpenses";
 import { useDispatch, useSelector } from "react-redux";
 import {ExpenseItemsAction} from "../Store/ExpenseItemData";
 import { themeActions } from "../Store/ThemeMode";
+import './toggel.css'
 const DailyExpenses = () => {
+  let email=useSelector(state=>state.auth.emailIs)
+ 
+  console.log("user email=>",email);
+
   const Inputmoney = useRef();
   const InputDescription = useRef();
   const InputCategory = useRef();
   const [cartShow,setCartShow]=useState(false);
-  const [EditData,setEditData]=useState()
   const[Premium,setPremium]=useState(false);
 
   const dispatch=useDispatch();
   const ExpenseItems=useSelector(state=>state.expenseitems.items);
   const themeMode = useSelector((state) => state.theme.theme);
+
   let url =
-    "https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense.json";
+    `https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`;
 
   useEffect(() => {
     async function fetchApi() {
       try {
         const GetApi = await fetch(
-          "https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense.json"
+          `https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`
         );
 
         if (GetApi.ok) {
@@ -39,21 +44,20 @@ const DailyExpenses = () => {
       }
     }
     fetchApi();
-  }, []);
+  },[email,dispatch]);
 
   function onHideCart(){
     setCartShow(false)
   }
 //***************************** Edit API     ******************==>START HERE <==
-async function onEditHandler(EditDATA){
-  setEditData(()=>EditDATA)
+async function onEditHandler(){
   setCartShow(true)
   }
 //***************************** Edit API     ******************==>START HERE <==
 // **************************** Delete Api   *******************==> START HERE<==
 async function onDeleteHandler(id){
   const GetApi = await fetch(
-    "https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense.json")
+    `https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`)
 let elementId;
     if(GetApi.ok){
       const response=await GetApi.json()
@@ -67,7 +71,7 @@ let elementId;
       }
     }
 
-    const del=await fetch(`https://expense-tracker-3983f-default-rtdb.firebaseio.com/Expense/${elementId}.json`,{
+    const del=await fetch(`https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}/${elementId}.json`,{
       method:'DELETE'
     })
     console.log(del.ok);
@@ -101,9 +105,13 @@ let elementId;
     </ul>
   );
 
-  useEffect(()=> {if(sum>10000){setPremium(true)}},[sum])
+  useEffect(()=> {
+    if(sum>9999)
+      {setPremium(true)}
+      else{setPremium(false)}
+  },[sum])
 
-console.log('premium',sum);
+
   // *********************** Show List data on screen **********==>END HERE<==
 
   async function onExpensesHandler(e) {
@@ -146,30 +154,37 @@ console.log('premium',sum);
       }
     }, [themeMode]);
      //*********************************** Theme ends**************==> End HERE <==
-     const premiumHandler = () => {
+     const onDyaNightMode = () => {
       dispatch(themeActions.toggleTheme());
     };
 
 //  ********************CSV*************************
-      const title=['Category','Description','Spent Money'];
-      const CSVdata=[title];
-      ExpenseItems.forEach(element => {
-        CSVdata.concat([element.category,element.description,element.money])
-      });
+function onDownloadCSV(){
+  const title=['Category','Description','Spent Money'];
+  const CSVdata=[title];
+  ExpenseItems.forEach(element => {
+    CSVdata.push([element.category,element.description,element.money])
+  });
 
-      const creatingCSV = CSVdata.map((row) => row.join(",")).join("\n");
-      const blob =new Blob([creatingCSV]); 
-
+  return CSVdata.map((row) => row.join(",")).join("\n");
+}
+      
+      const blob =new Blob([onDownloadCSV()]); 
     
   return (<>
   <div className={classes.premium}>
-  {Premium && <button onClick={premiumHandler}>Premium</button>}
-  </div>
+    <button>Premium {Premium ?  '🤩': '😔'}</button>
  
+  </div>
+ {Premium && <div style={{marginLeft:'95%'}}>
+  <label className="switch">
+  <input type="checkbox"  onClick={onDyaNightMode}/>
+  <span className="slider round">🌙{" "}🌕</span>
+</label></div>}
     <div className={classes.maindiv}>
     {Premium &&  <a
           href={URL.createObjectURL(blob)}
-          download="expenses.csv"
+          download="expenses.txt"
           style={{ marginTop: "80px", color: "red" }}
         >
           Download Your Expenses
@@ -191,10 +206,11 @@ console.log('premium',sum);
                 <input type="text" ref={InputDescription} />
               </td>
               <td>
-                <select name="Category" id="Tcategory" ref={InputCategory}>
+                <select name="Category" id="Tcategory" defaultValue="Food" ref={InputCategory}>
                   <option value="Food">Food</option>
                   <option value="Petrol">Petrol</option>
                   <option value="Salary">Salary</option>
+                  <option value="Electronice">Electronice</option>
                 </select>
               </td>
             </tr>
@@ -202,10 +218,8 @@ console.log('premium',sum);
         </table>
         <button>submit</button>
       </form>
-      
       {data}
-    
-      {cartShow && <UpdateExpenses Editdata={EditData} onHide={onHideCart}/>}
+      {cartShow && <UpdateExpenses onHide={onHideCart}/>}
     </div>
     </>
   );
