@@ -23,15 +23,15 @@ const ContactDetails = () => {
             'Content-Type':'application/json'
         }
       })
-        .then((res)=>res.json())
+        .then((res)=>res.json() )
         .then(res=>{
-            console.log(res)
+            // console.log(res)
             setUserDetails({
                 name:res.users[0].displayName,
                 url:res.users[0].photoUrl
             })
         })
-        .catch(err=>alert('Error in get request',err))
+        .catch(err=>console.log(err))
     },[])
     
     function onUpdateProfile(e){
@@ -55,8 +55,8 @@ const ContactDetails = () => {
 
     }).then(res=>res.json())
     .then((res)=>{
-        console.log(res);
-   
+        // console.log(res);
+   alert("Profile Successfully updated.")
     }).catch(err=>console.log(err))
     }
     function onVerifyEmail(){
@@ -90,7 +90,7 @@ fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSy
     <tbody>
         <tr>
             <td><h1 id='h1'>ContactDetails</h1></td>
-        <td ><button id='b1'>Cancle</button> </td>
+        <td ><button id='b1' onClick={()=>Navigate('/Dummy')}>Cancle</button> </td>
         </tr>
     </tbody>
 </table>

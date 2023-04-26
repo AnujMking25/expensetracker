@@ -17,7 +17,7 @@ const isAuth=useSelector(state=>state.auth.isAuthLoggedIn);
 
     <Route path='/' element={ isAuth ? <Dummy/>: <SignupPage/>}/>  
       {isAuth && <Route path='/Dummy' element={<Dummy/>}/>} 
-    <Route path='/CompleteProfile' element={<CompleteProfile/>}/>
+      {isAuth &&<Route path='/CompleteProfile' element={<CompleteProfile/>}/>}
      <Route path='/forgetpage' element={<ForgetPassword/>}/>
     </Routes>
     </>

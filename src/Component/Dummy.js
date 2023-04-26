@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import classes from './Dummy.module.css'
 import DailyExpenses from './Expense/DailyExpenses'
 const Dummy = () => {
-   const Navigate=useNavigate()
+   const Navigate=useNavigate();
   return (
     <div className={classes.maindiv}>
          <p>Welcome To Expense Tracker!!!</p>

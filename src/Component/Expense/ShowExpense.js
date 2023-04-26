@@ -21,10 +21,6 @@ props.onDelete(props.id)
       dispatch(ExpenseItemsAction.EditData(edititem))
     props.onEdit()
   }
-  
-  // Premium button logic
- 
-  // Premium button end
   return (
     <li key={props.id} className={classes.mainli}>
       
