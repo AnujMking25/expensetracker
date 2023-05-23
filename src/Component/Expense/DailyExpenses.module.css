@@ -1,8 +1,8 @@
 
 .premium{
     float: left;
-    margin-left: 3rem;
-    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-top: 0rem;
 }
 .premium button{
     background: rgb(33, 33, 132);
@@ -51,4 +51,32 @@
 }
 .maindiv button{
     margin-top: 2rem;
+    float: right;
+}
+@media(max-width:530px){
+    .premium{
+        margin-left: 1px;
+        margin-top: 0rem;
+        
+    }
+    .premium button{
+        font-size: 20px;
+       width: max-content;
+    }
+}
+@media(max-width:600px){
+    .maindiv{
+        max-width: 100%;
+    }
+    .maindiv th{
+        font-size: medium;
+    }
+}
+@media(max-width:500px){
+    .maindiv th{
+        font-size: small;
+    }
+    .maindiv select{
+        font-size: small;
+    }
 }

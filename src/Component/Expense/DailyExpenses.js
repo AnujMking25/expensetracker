@@ -22,13 +22,13 @@ const DailyExpenses = () => {
   const themeMode = useSelector((state) => state.theme.theme);
 
   let url =
-    `https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`;
+    `https://expenses-tracker-96b1c-default-rtdb.firebaseio.com/${email}.json`;
 
   useEffect(() => {
     async function fetchApi() {
       try {
         const GetApi = await fetch(
-          `https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`
+          `https://expenses-tracker-96b1c-default-rtdb.firebaseio.com/${email}.json`
         );
 
         if (GetApi.ok) {
@@ -40,7 +40,7 @@ const DailyExpenses = () => {
           dispatch(ExpenseItemsAction.GetApiData(resarr))
         }
       } catch (error) {
-        alert("Get Method not working", error);
+        alert("Get Method is not working", error);
       }
     }
     fetchApi();
@@ -57,7 +57,7 @@ async function onEditHandler(){
 // **************************** Delete Api   *******************==> START HERE<==
 async function onDeleteHandler(id){
   const GetApi = await fetch(
-    `https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}.json`)
+    `https://expenses-tracker-96b1c-default-rtdb.firebaseio.com/${email}.json`)
 let elementId;
     if(GetApi.ok){
       const response=await GetApi.json()
@@ -71,7 +71,7 @@ let elementId;
       }
     }
 
-    const del=await fetch(`https://expense-tracker-3983f-default-rtdb.firebaseio.com/${email}/${elementId}.json`,{
+    const del=await fetch(`https://expenses-tracker-96b1c-default-rtdb.firebaseio.com/${email}/${elementId}.json`,{
       method:'DELETE'
     })
     console.log(del.ok);
@@ -114,7 +114,7 @@ let elementId;
 
   // *********************** Show List data on screen **********==>END HERE<==
 
-  async function onExpensesHandler(e) {
+   function onExpensesHandler(e) {
     e.preventDefault();
     // console.log(InputCategory.current.value)
     const EnteredMoney = Inputmoney.current.value;
@@ -127,6 +127,7 @@ let elementId;
                       category: EnteredCategory,
                     }
     // *********************** Post Request Api ***********==> START HERE<==*****************
+   async function postApi(){
     try {
       const PostApi = await fetch(url, {
         method: "POST",
@@ -141,6 +142,8 @@ let elementId;
     } catch (error) {
       alert(error.message);
     }
+   }
+   postApi();
     // *********************** Post Request Api ***********==> END HERE<==*****************
   }
 
@@ -176,7 +179,7 @@ function onDownloadCSV(){
     <button>Premium {Premium ?  '🤩': '😔'}</button>
  
   </div>
- {Premium && <div style={{marginLeft:'95%'}}>
+ {Premium && <div style={{float:"right"}}>
   <label className="switch">
   <input type="checkbox"  onClick={onDyaNightMode}/>
   <span className="slider round">🌙{" "}🌕</span>
@@ -216,7 +219,7 @@ function onDownloadCSV(){
             </tr>
           </tbody>
         </table>
-        <button>submit</button>
+        <button type="submit">submit</button>
       </form>
       {data}
       {cartShow && <UpdateExpenses onHide={onHideCart}/>}

@@ -1,5 +1,5 @@
 .maindiv{
-    display: inline;
+    height: 2rem;
 }
 .maindiv p{
     font-style: italic;
@@ -15,18 +15,14 @@ border: none;
 padding:5px 10px 5px 10px;
 border-radius: 10px;
 }
-@media (max-width: 496px) {
-   .maindiv{
-    display: block;
-    text-align: center;
-   }
-   .maindiv p{
-    width: 100%;
-   display: block;
-   }
-   .maindiv button{
-    margin-right: 0;
-    margin-left: 2%;
-    float: none;
-   }
+@media (max-width:613px){
+    .maindiv{
+        height: max-content;
+        text-align: center;
+        display: block;
+    }
+    .maindiv button{
+        float: none;
+        margin-top: 5px;
+    }
 }

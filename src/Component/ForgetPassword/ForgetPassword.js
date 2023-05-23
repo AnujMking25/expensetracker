@@ -4,7 +4,7 @@ const ForgetPassword = () => {
    const inputEmail=useRef();
    function onForgetPassword(){
 
-    fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBwbCcow5NRjnP0jrgWCCdR_g0UiZX-vVI',{
+    fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyD6ol3dhBj2iN5vxTth5KzXNv4qzQJxrZs',{
         method:'POST',
         body:JSON.stringify({
             requestType:"PASSWORD_RESET",

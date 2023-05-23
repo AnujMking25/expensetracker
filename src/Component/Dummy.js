@@ -4,13 +4,15 @@ import classes from './Dummy.module.css'
 import DailyExpenses from './Expense/DailyExpenses'
 const Dummy = () => {
    const Navigate=useNavigate();
-  return (
+  return (<>
     <div className={classes.maindiv}>
          <p>Welcome To Expense Tracker!!!</p>
          <button onClick={()=>Navigate('/CompleteProfile')}>Your Profile is incomplete.<i style={{color:'blue'}}>Complete now</i></button>
          <hr/>
          <DailyExpenses/>
          </div>
+          </>
+
   )
 }
 

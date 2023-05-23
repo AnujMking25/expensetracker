@@ -4,8 +4,8 @@ display: flex;
 border: 1px solid antiquewhite;
 }
 .mainli p{
+    display: inline;
 font-size: medium;
-padding-top: 5px;
 margin-left: 1rem;
 }
 
@@ -13,6 +13,31 @@ margin-left: 1rem;
     margin-right: 1.5rem;
 }
 .mainli div{
+    display: inline;
     right: 0;
     margin-left: auto;
+}
+.mainli h3{
+    font-size: 15px;
+display: inline;
+   width: fit-content;
+    }
+@media(max-width:750px){
+    .mainli h3{
+    font-size: 14px;
+    }
+}
+@media (max-width:500px) {
+   .mainli div{
+    right:initial;
+    display: flex;
+   }
+    .mainli button{
+        margin-right:2px;
+    }
+    .mainli p{
+        font-size: medium;
+        margin-left:5px;
+        width: fit-content;
+        }
 }
