@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./DailyExpenses.module.css";
 import ShowExpense from "./ShowExpense";
 import UpdateExpenses from "./UpdateExpenses";
@@ -11,9 +11,7 @@ const DailyExpenses = () => {
  
   console.log("user email=>",email);
 
-  const Inputmoney = useRef();
-  const InputDescription = useRef();
-  const InputCategory = useRef();
+  let[Inputdata,setInputData]=useState({Inputmoney:'',InputDescription:'',InputCategory:''});
   const [cartShow,setCartShow]=useState(false);
   const[Premium,setPremium]=useState(false);
 
@@ -114,18 +112,44 @@ let elementId;
 
   // *********************** Show List data on screen **********==>END HERE<==
 
+  function onMoneyHandler(e){
+    setInputData({
+      ...Inputdata,
+      Inputmoney:e.target.value
+    })
+  }
+  function onDescriptionHandler(e){
+    setInputData({...Inputdata,
+                  InputDescription:e.target.value
+              })
+  }
+  function onCategoryHandler(e){
+    setInputData({...Inputdata,
+                  InputCategory:e.target.value
+              })
+  }
    function onExpensesHandler(e) {
     e.preventDefault();
-    // console.log(InputCategory.current.value)
-    const EnteredMoney = Inputmoney.current.value;
-    const EnteredDescription = InputDescription.current.value;
-    const EnteredCategory = InputCategory.current.value;
-
-    const postData={ id:EnteredMoney+EnteredDescription,
+    
+    const EnteredMoney = Inputdata.Inputmoney;
+    const EnteredDescription = Inputdata.InputDescription;
+    const EnteredCategory = Inputdata.InputCategory;
+    if(EnteredCategory==="" || EnteredDescription==="" || EnteredMoney===""){
+      alert('Please fill all details...')
+      return;
+    }
+    const no=Math.random();
+    
+    const postData={ id:EnteredMoney+EnteredDescription+no,
                       money: EnteredMoney,
                       description: EnteredDescription,
                       category: EnteredCategory,
                     }
+     setInputData({
+                 Inputmoney:'',
+                 InputDescription:'',
+                 InputCategory:''
+                })
     // *********************** Post Request Api ***********==> START HERE<==*****************
    async function postApi(){
     try {
@@ -203,16 +227,17 @@ function onDownloadCSV(){
             </tr>
             <tr>
               <td>
-                <input type="number" ref={Inputmoney} />
+                <input type="number" value={Inputdata.Inputmoney} onChange={onMoneyHandler}/>
               </td>
               <td>
-                <input type="text" ref={InputDescription} />
+                <input type="text" value={Inputdata.InputDescription} onChange={onDescriptionHandler}/>
               </td>
               <td>
-                <select name="Category" id="Tcategory" defaultValue="Food" ref={InputCategory}>
+                <select name="Category" id="Tcategory" defaultValue="Food" onClick={onCategoryHandler} >
                   <option value="Food">Food</option>
                   <option value="Petrol">Petrol</option>
                   <option value="Salary">Salary</option>
+                  <option value="Grocery">Grocery</option>
                   <option value="Electronice">Electronice</option>
                 </select>
               </td>
