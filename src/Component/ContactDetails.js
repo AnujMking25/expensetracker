@@ -15,7 +15,7 @@ const ContactDetails = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyD6ol3dhBj2iN5vxTth5KzXNv4qzQJxrZs",
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB5buSelaweKxG7lYB7jVRdR7v-NJY-_DE",
       {
         method: "POST",
         body: JSON.stringify({
@@ -44,7 +44,7 @@ const ContactDetails = () => {
     const Url = InputUrl.current.value;
     const Token = localStorage.getItem("token");
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyD6ol3dhBj2iN5vxTth5KzXNv4qzQJxrZs",
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB5buSelaweKxG7lYB7jVRdR7v-NJY-_DE",
       {
         method: "POST",
         body: JSON.stringify({
@@ -70,7 +70,7 @@ const ContactDetails = () => {
     // alert('Working')
     const token = localStorage.getItem("token");
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyD6ol3dhBj2iN5vxTth5KzXNv4qzQJxrZs",
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB5buSelaweKxG7lYB7jVRdR7v-NJY-_DE",
       {
         method: "POST",
         body: JSON.stringify({

@@ -52,10 +52,10 @@ const dispatch=useDispatch();
     }
     if (password === confirmPassword) {       
       let url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD6ol3dhBj2iN5vxTth5KzXNv4qzQJxrZs";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB5buSelaweKxG7lYB7jVRdR7v-NJY-_DE";
       if (IsLogedin) {
         url =
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD6ol3dhBj2iN5vxTth5KzXNv4qzQJxrZs";
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5buSelaweKxG7lYB7jVRdR7v-NJY-_DE";
       }
 
       try {
