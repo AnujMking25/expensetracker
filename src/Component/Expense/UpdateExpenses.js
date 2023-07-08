@@ -46,7 +46,7 @@ function onHide(){
       category: Ecategory.current.value,
     }
     try {
-      const EditApi= await fetch(`https://expenses-tracker-96b1c-default-rtdb.firebaseio.com/${email}/${elementID}.json`,{
+      const EditApi= await fetch(`https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}/${elementID}.json`,{
         method:'PUT',
         body:JSON.stringify(updatedData),
         headers:{
