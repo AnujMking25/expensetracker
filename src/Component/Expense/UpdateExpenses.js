@@ -16,7 +16,7 @@ function onHide(){
   async function getElementID(){
     try {
       let elementId;
-      const getApi=await fetch(`https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}.json`)
+      const getApi=await fetch(`https://expenses-tracker-e19f3-default-rtdb.firebaseio.com/${email}.json`)
         if(getApi.ok){
           // alert("getApi working")
           const response=await getApi.json();
@@ -46,7 +46,7 @@ function onHide(){
       category: Ecategory.current.value,
     }
     try {
-      const EditApi= await fetch(`https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}/${elementID}.json`,{
+      const EditApi= await fetch(`https://expenses-tracker-e19f3-default-rtdb.firebaseio.com/${email}/${elementID}.json`,{
         method:'PUT',
         body:JSON.stringify(updatedData),
         headers:{

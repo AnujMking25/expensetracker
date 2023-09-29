@@ -20,13 +20,13 @@ const DailyExpenses = () => {
   const themeMode = useSelector((state) => state.theme.theme);
 
   let url =
-    `https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}.json`;
+    `https://expenses-tracker-e19f3-default-rtdb.firebaseio.com/${email}.json`;
 
   useEffect(() => {
     async function fetchApi() {
       try {
         const GetApi = await fetch(
-          `https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}.json`
+          `https://expenses-tracker-e19f3-default-rtdb.firebaseio.com/${email}.json`
         );
 
         if (GetApi.ok) {
@@ -55,7 +55,7 @@ async function onEditHandler(){
 // **************************** Delete Api   *******************==> START HERE<==
 async function onDeleteHandler(id){
   const GetApi = await fetch(
-    `https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}.json`)
+    `https://expenses-tracker-e19f3-default-rtdb.firebaseio.com/${email}.json`)
 let elementId;
     if(GetApi.ok){
       const response=await GetApi.json()
@@ -69,7 +69,7 @@ let elementId;
       }
     }
 
-    const del=await fetch(`https://expenses-tracker-664a3-default-rtdb.firebaseio.com/${email}/${elementId}.json`,{
+    const del=await fetch(`https://expenses-tracker-e19f3-default-rtdb.firebaseio.com/${email}/${elementId}.json`,{
       method:'DELETE'
     })
     console.log(del.ok);
